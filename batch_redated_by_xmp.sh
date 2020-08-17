@@ -1,6 +1,7 @@
 #!/bin/bash
 IFS='
 '
+fileNotExistCnt=0
 echo "" > log.txt
 find . -type d -mindepth 1| while IFS= read -r dir
 do
@@ -23,9 +24,9 @@ do
           if test -f "$fullImgPath"
           then
             echo "touch -t $ymd $fullImgPath" >> log.txt
-            touch -t $ymd "$fullImgPath"
+            touch -t "$ymd" "$fullImgPath"
           else
-            let "fileNotExistCnt=$fileNotExistCnt+1"
+            (("fileNotExistCnt=$fileNotExistCnt+1"))
             echo "$fullImgPath does not exist" >> log.txt
           fi
         done
